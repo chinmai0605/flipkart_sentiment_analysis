@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentiment Analyzer</title>
+    <style>
+        body { font-family: Arial; max-width: 800px; margin: 50px auto; padding: 20px; background: #f8f9fa; }
+        .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 25px; }
+        textarea { width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; }
+        textarea:focus { border-color: #007bff; outline: none; }
+        button { 
+            width: 100%; padding: 15px; background: #007bff; color: white; 
+            border: none; border-radius: 8px; font-size: 16px; cursor: pointer;
+        }
+        button:hover { background: #0056b3; }
+        .positive { color: #28a745; font-size: 28px; font-weight: bold; }
+        .negative { color: #dc3545; font-size: 28px; font-weight: bold; }
+        .result { 
+            margin-top: 25px; padding: 25px; border: 2px solid #e9ecef; 
+            border-radius: 10px; background: #f8f9fa;
+        }
+        .confidence { font-size: 18px; margin: 10px 0; }
+        .cleaned { margin-top: 15px; padding: 12px; background: white; border-radius: 5px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sentiment Analysis of Real-time Flipkart Product Reviews</h1>
+        <p class="subtitle">Paste Flipkart review → Instant analysis</p>
+        
+        <form method="post">
+            <textarea name="review" rows="6" placeholder="e.g. 'Poor quality breaks after 2 games...' or 'Excellent durable product'"></textarea><br><br>
+            <button type="submit">Analyze Sentiment</button>
+        </form>
+
+        {% if result %}
+            <div class="result">
+                <h2 class="{% if 'Positive' in result.sentiment %}positive{% else %}negative{% endif %}">
+                    {{ result.sentiment }} 
+                    <span class="confidence">({{ result.confidence }})</span>
+                </h2>
+                <div class="cleaned">
+                    <strong>Cleaned text:</strong> {{ result.cleaned }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
